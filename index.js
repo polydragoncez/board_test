@@ -21,13 +21,19 @@ io.on('connection', function(socket){
 		console.log(validate.validate_time(data.time))
 		if (validate.validate_email(data.email)) {
 			if (validate.validate_time(data.time)) {
-				global_message.push({
-					author: data.author || 'author',
-					email: data.email || 'email',
-					time: data.time || new Date(),
-					content: data.content || 'content'
-				})
-				io.emit('message', global_message)
+				if (data.author == '') {
+					io.emit('validError', 'Author should not empty.')
+				}else if (data.content == '') {
+					io.emit('validError', 'content should not empty.')
+				}else {
+					global_message.push({
+						author: data.author,
+						email: data.email,
+						time: data.time,
+						content: data.content
+					})
+					io.emit('message', global_message)
+				}
 			}else {
 				io.emit('validError', 'Time Format Error.')
 			}
