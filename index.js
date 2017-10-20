@@ -16,10 +16,17 @@ app.set('views', path.join(__dirname, 'views'))
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const global_message = []
 io.on('connection', function(socket){
     socket.on('message', function(data){
-        console.log(data)
-    	//io.emit('message','data');
+	    global_message.push({
+	    	author: data.author,
+	    	email: data.email,
+	    	time: data.time,
+	    	content: data.content
+	    })
+	    console.log(global_message)
+	    io.emit('message', global_message)
     });
     socket.on('disconnect', function () {
 
@@ -27,6 +34,16 @@ io.on('connection', function(socket){
 });
 
 app.get("/", function(req, res){
+    res.render('index', {
+        title: 'hello, world!'
+    });
+});
+
+app.post("/", function(req, res){
+    // res.render('index', {
+    //     title: 'hello, world!'
+    // });
+    io.emit('message','data123');
     res.render('index', {
         title: 'hello, world!'
     });

@@ -7,11 +7,34 @@ html
 	body
 		H1 #{title}
 		script(type='text/javascript').
-			$(function () { 
+			$(function () { 	
 				var socket = io.connect('http://localhost:3000');
 				socket.on('message', function(data){
-					socket.emit('message', 'data');
+					console.log(data)
 				}); 
-				socket.emit('message', 'test');
+				$("#submit").click(function() {
+					var post = {
+						author: $('#author').val(), 
+						email: $('#email').val(),
+						time: $('#time').val(),
+						content: $('#content').val()
+					}
+					socket.emit('message', post);
+				});
+				
 			});
+	div
+		p author + email
+		p content
+		p time
+	form(method='post')
+		p author
+			input#author(name='author')
+		p email
+			input#email(name='email')
+		p time
+			input#time(name='time')
+		p content
+			input#content(name='content')
+		input#submit(type='button', value='submit')
 
