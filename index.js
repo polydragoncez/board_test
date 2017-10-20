@@ -12,21 +12,25 @@ app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 
-
-
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const global_message = []
+const validate = require('./src/validate').validate_email
 io.on('connection', function(socket){
     socket.on('message', function(data){
-	    global_message.push({
-	    	author: data.author || 'author',
-	    	email: data.email || 'email',
-	    	time: data.time || new Date(),
-	    	content: data.content || 'content'
-	    })
-	    console.log(global_message)
-	    io.emit('message', global_message)
+    	if (validate(data.email)) {
+    		console.log('validate success')
+		    global_message.push({
+		    	author: data.author || 'author',
+		    	email: data.email || 'email',
+		    	time: data.time || new Date(),
+		    	content: data.content || 'content'
+		    })
+		    console.log(global_message)
+		    io.emit('message', global_message)
+    	}else {
+    		io.emit('validError', 'Email Format Error.')
+    	}
     });
     socket.on('disconnect', function () {
 

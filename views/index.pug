@@ -22,6 +22,9 @@ html
 						);
 					})
 				}); 
+				socket.on('validError', function(data){
+					alert(data)
+				}); 
 				$("#submit").click(function() {
 					var post = {
 						author: $('#author').val(), 
