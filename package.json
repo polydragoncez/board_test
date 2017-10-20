@@ -1,0 +1,24 @@
+{
+  "name": "board_test",
+  "version": "1.0.0",
+  "description": "board + test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polydragoncez/board_test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/polydragoncez/board_test/issues"
+  },
+  "homepage": "https://github.com/polydragoncez/board_test#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "pug": "^2.0.0-rc.4",
+    "socket.io": "^2.0.3"
+  }
+}
