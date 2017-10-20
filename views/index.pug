@@ -12,14 +12,12 @@ html
 				socket.on('message', function(data){
 					console.log(data)
 					$("#message_block").empty();
-					data.map(obj=>{
-						$("#message_block").append(
-						"<div style='border: solid 1px;'>"+
-						"<p>"+ obj.author + '&nbsp' + obj.email +"</p>" + 
-						"</p>"+ obj.content +"</p>" + 
-						"</p>"+ obj.time +"</p>" +
-						"</div>"
-						);
+					data.map((obj, i)=>{
+						$("#message_block").append("<div style='border: solid 1px;' id=m" + i + "><p></p><p></p><p></p></div>");
+						$("#m"+i+" p:eq(0)").text(obj.author + ' ' + obj.email)
+						$("#m"+i+" p:eq(1)").text(obj.content)
+						$("#m"+i+" p:eq(2)").text(obj.time)
+
 					})
 				}); 
 				socket.on('validError', function(data){
