@@ -20,10 +20,10 @@ const global_message = []
 io.on('connection', function(socket){
     socket.on('message', function(data){
 	    global_message.push({
-	    	author: data.author,
-	    	email: data.email,
-	    	time: data.time,
-	    	content: data.content
+	    	author: data.author || 'author',
+	    	email: data.email || 'email',
+	    	time: data.time || new Date(),
+	    	content: data.content || 'content'
 	    })
 	    console.log(global_message)
 	    io.emit('message', global_message)
@@ -38,16 +38,5 @@ app.get("/", function(req, res){
         title: 'hello, world!'
     });
 });
-
-app.post("/", function(req, res){
-    // res.render('index', {
-    //     title: 'hello, world!'
-    // });
-    io.emit('message','data123');
-    res.render('index', {
-        title: 'hello, world!'
-    });
-});
-
 
 server.listen(3000);

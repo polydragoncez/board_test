@@ -11,6 +11,16 @@ html
 				var socket = io.connect('http://localhost:3000');
 				socket.on('message', function(data){
 					console.log(data)
+					$("#message_block").empty();
+					data.map(obj=>{
+						$("#message_block").append(
+						"<div style='border: solid 1px;'>"+
+						"<p>"+ obj.author + '&nbsp' + obj.email +"</p>" + 
+						"</p>"+ obj.content +"</p>" + 
+						"</p>"+ obj.time +"</p>" +
+						"</div>"
+						);
+					})
 				}); 
 				$("#submit").click(function() {
 					var post = {
@@ -21,20 +31,18 @@ html
 					}
 					socket.emit('message', post);
 				});
-				
+				setInterval(function(){
+					$('#time').val(new Date());
+				}, 1000);
 			});
-	div
-		p author + email
-		p content
-		p time
+	div#message_block
 	form(method='post')
 		p author
 			input#author(name='author')
 		p email
 			input#email(name='email')
 		p time
-			input#time(name='time')
+			input#time(name='time', style='width:250px;', readonly)
 		p content
 			input#content(name='content')
 		input#submit(type='button', value='submit')
-
