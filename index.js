@@ -22,9 +22,9 @@ io.on('connection', function(socket){
 		if (validate.validate_email(data.email)) {
 			if (validate.validate_time(data.time)) {
 				if (data.author == '') {
-					io.emit('validError', 'Author should not empty.')
+					socket.emit('validError', 'Author should not empty.')
 				}else if (data.content == '') {
-					io.emit('validError', 'content should not empty.')
+					socket.emit('validError', 'content should not empty.')
 				}else {
 					global_message.push({
 						author: data.author,
@@ -35,10 +35,10 @@ io.on('connection', function(socket){
 					io.emit('message', global_message)
 				}
 			}else {
-				io.emit('validError', 'Time Format Error.')
+				socket.emit('validError', 'Time Format Error.')
 			}
 		}else {
-			io.emit('validError', 'Email Format Error.')
+			socket.emit('validError', 'Email Format Error.')
 		}
 	});
 	socket.on('disconnect', function () {

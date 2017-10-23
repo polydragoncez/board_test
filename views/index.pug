@@ -8,7 +8,7 @@ html
 		H1 #{title}
 		script(type='text/javascript').
 			$(function () { 	
-				var socket = io.connect('http://localhost:3000');
+				var socket = io.connect('http://10.102.250.97:3000');
 				socket.on('message', function(data){
 					$("#message_block").empty();
 					data.map((obj, i)=>{
